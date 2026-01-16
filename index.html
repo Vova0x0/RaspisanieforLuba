@@ -4,10 +4,17 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Расписание Для Любовь Ивановны</title>
+  
+  <!-- Favicon (аватар сайта) -->
+  <link rel="icon" href="https://sun9-84.userapi.com/s/v1/ig2/sIpw34X7TNgAeyM04lRXTy7egBdjjf1YI_1YgDxvv-9w6JzR7xPQ4B_o6RWsI5z9BgmTRw6uGbhhEUkdlrjQin-9.jpg" type="image/jpeg">
+  <link rel="apple-touch-icon" href="https://sun9-84.userapi.com/s/v1/ig2/sIpw34X7TNgAeyM04lRXTy7egBdjjf1YI_1YgDxvv-9w6JzR7xPQ4B_o6RWsI5z9BgmTRw6uGbhhEUkdlrjQin-9.jpg">
+  
+  <!-- CDN стили -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=SF+Pro+Display:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
   <style>
     /* Apple Glass Design System - iOS 26 - Оптимизированный */
     :root {
@@ -126,12 +133,12 @@
       }
     }
     
-    /* Приветственная плашка - оптимизированная */
+    /* Приветственная плашка - оптимизированная с анимацией исчезновения */
     .welcome-banner {
       position: fixed;
       top: max(20px, env(safe-area-inset-top));
       left: 50%;
-      transform: translateX(-50%);
+      transform: translateX(-50%) translateY(0);
       z-index: 10000;
       background: linear-gradient(135deg,
         rgba(94, 92, 230, 0.25),
@@ -148,6 +155,14 @@
       gap: 12px;
       max-width: calc(100vw - 32px);
       white-space: nowrap;
+      opacity: 1;
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .welcome-banner.hiding {
+      opacity: 0;
+      transform: translateX(-50%) translateY(-100px);
+      pointer-events: none;
     }
     
     @keyframes welcomeSlideIn {
@@ -167,6 +182,10 @@
       animation: wave 2s ease-in-out infinite;
     }
     
+    .welcome-banner.hiding .welcome-icon {
+      animation: none;
+    }
+    
     @keyframes wave {
       0%, 100% { transform: rotate(0deg); }
       25% { transform: rotate(15deg); }
@@ -182,7 +201,7 @@
       background-clip: text;
     }
     
-    /* Праздничная плашка - оптимизированная */
+    /* Праздничная плашка на день рождения */
     .birthday-banner {
       position: fixed;
       top: 80px;
@@ -203,12 +222,26 @@
       align-items: center;
       gap: 15px;
       max-width: calc(100vw - 32px);
+      opacity: 0;
     }
     
-    @keyframes birthdayPulse {
-      0% { transform: translateX(-50%) scale(0); opacity: 0; }
-      70% { transform: translateX(-50%) scale(1.05); opacity: 1; }
-      100% { transform: translateX(-50%) scale(1); opacity: 1; }
+    .birthday-banner.show {
+      animation: birthdayShow 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    
+    @keyframes birthdayShow {
+      0% { 
+        opacity: 0;
+        transform: translateX(-50%) scale(0.5); 
+      }
+      70% { 
+        opacity: 1;
+        transform: translateX(-50%) scale(1.05); 
+      }
+      100% { 
+        opacity: 1;
+        transform: translateX(-50%) scale(1); 
+      }
     }
     
     .birthday-icon {
@@ -231,6 +264,76 @@
       background-clip: text;
     }
     
+    /* Плашка на 8 марта */
+    .march8-banner {
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-100px);
+      z-index: 9998;
+      background: linear-gradient(135deg,
+        rgba(255, 55, 95, 0.3),
+        rgba(255, 105, 180, 0.3),
+        rgba(255, 182, 193, 0.3)
+      );
+      backdrop-filter: var(--blur-medium);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 20px;
+      padding: 18px 28px;
+      box-shadow: 
+        0 20px 60px rgba(255, 105, 180, 0.4),
+        0 0 40px rgba(255, 182, 193, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      max-width: calc(100vw - 32px);
+      opacity: 0;
+      transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    .march8-banner.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    
+    .march8-banner.hiding {
+      opacity: 0;
+      transform: translateX(-50%) translateY(-100px);
+      pointer-events: none;
+    }
+    
+    .march8-icon {
+      font-size: 1.8rem;
+      color: #FF69B4;
+      animation: float 2s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { 
+        transform: translateY(0) rotate(0deg); 
+      }
+      33% { 
+        transform: translateY(-5px) rotate(5deg); 
+      }
+      66% { 
+        transform: translateY(3px) rotate(-5deg); 
+      }
+    }
+    
+    .march8-text {
+      font-size: 1.3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, 
+        #FF69B4 0%, 
+        #FFB6C1 50%, 
+        #FFFFFF 100%
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 2px 10px rgba(255, 105, 180, 0.3);
+    }
+    
     /* Конфетти - оптимизированное */
     .confetti {
       position: fixed;
@@ -239,7 +342,7 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: 9998;
+      z-index: 9997;
       overflow: hidden;
     }
     
@@ -261,6 +364,41 @@
       100% {
         opacity: 0;
         transform: translateY(100vh) rotate(360deg);
+      }
+    }
+    
+    /* Цветочные лепестки для 8 марта */
+    .petals {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9996;
+      overflow: hidden;
+    }
+    
+    .petal {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: linear-gradient(135deg, #FF69B4, #FFB6C1);
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+      opacity: 0;
+      animation: petalFall 8s linear infinite;
+    }
+    
+    @keyframes petalFall {
+      0% {
+        opacity: 0;
+        transform: translateY(-100px) rotate(0deg);
+      }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.8; }
+      100% {
+        opacity: 0;
+        transform: translateY(100vh) rotate(720deg);
       }
     }
     
@@ -331,7 +469,7 @@
     .logo-image {
       width: 80%;
       height: 80%;
-      background-image: url('https://sun1-21.userapi.com/s/v1/ig2/66JFDgO03eGBNPtFpAQskAOEJyoBFECrA8H20BFqV-_1yifqmS0ZzPZCJ-Rh3WrQaBtfiqJBVrkyn3tTJmxgUzYm.jpg?quality=95&crop=39,50,561,561&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540&ava=1&cs=240x240');
+      background-image: url('https://sun9-84.userapi.com/s/v1/ig2/sIpw34X7TNgAeyM04lRXTy7egBdjjf1YI_1YgDxvv-9w6JzR7xPQ4B_o6RWsI5z9BgmTRw6uGbhhEUkdlrjQin-9.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1024x1024&from=bu&cs=1024x0');
       background-size: cover;
       background-position: center;
       border-radius: 50%;
@@ -475,6 +613,19 @@
     .glass-button.accent {
       background: linear-gradient(135deg, var(--ios-green), var(--ios-cyan));
       border-color: rgba(48, 209, 88, 0.4);
+    }
+    
+    .glass-button.theme-button {
+      background: linear-gradient(135deg, 
+        rgba(52, 199, 89, 0.3), 
+        rgba(50, 173, 230, 0.3)
+      );
+      border: 1px solid rgba(52, 199, 89, 0.4);
+      box-shadow: 0 8px 32px rgba(52, 199, 89, 0.2);
+    }
+    
+    .glass-button.theme-button:hover {
+      box-shadow: 0 12px 40px rgba(52, 199, 89, 0.3);
     }
     
     /* Поиск по дате */
@@ -748,6 +899,7 @@
       animation: swipeHint 3s ease-in-out infinite;
       opacity: 0;
       pointer-events: none;
+      transition: opacity 0.5s ease;
     }
     
     .swipe-indicator.visible {
@@ -780,7 +932,7 @@
       50% { opacity: 1; }
     }
     
-    /* Футер */
+    /* Футер с кнопкой переключения темы */
     .footer {
       text-align: center;
       padding: 30px 20px;
@@ -790,6 +942,15 @@
       margin: 0 auto;
       border-top: 1px solid var(--glass-border-light);
       margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+    
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
     }
     
     .footer-signature {
@@ -797,6 +958,31 @@
       color: var(--text-secondary);
       margin-top: 8px;
       font-size: 1rem;
+    }
+    
+    .theme-section {
+      margin-top: 10px;
+    }
+    
+    .theme-button {
+      padding: 16px 28px;
+      font-size: 1rem;
+      gap: 12px;
+      background: linear-gradient(135deg, 
+        rgba(52, 199, 89, 0.3), 
+        rgba(50, 173, 230, 0.3)
+      );
+      border: 1px solid rgba(52, 199, 89, 0.4);
+      animation: themeButtonPulse 3s ease-in-out infinite;
+    }
+    
+    @keyframes themeButtonPulse {
+      0%, 100% { 
+        box-shadow: 0 8px 32px rgba(52, 199, 89, 0.2);
+      }
+      50% { 
+        box-shadow: 0 12px 40px rgba(52, 199, 89, 0.4);
+      }
     }
     
     /* Адаптивность */
@@ -817,11 +1003,13 @@
         font-size: 1.2rem;
       }
       
-      .birthday-banner {
+      .birthday-banner,
+      .march8-banner {
         padding: 20px 35px;
       }
       
-      .birthday-text {
+      .birthday-text,
+      .march8-text {
         font-size: 1.4rem;
       }
       
@@ -854,6 +1042,12 @@
         border-color: var(--glass-border-medium);
         box-shadow: var(--shadow-medium);
       }
+      
+      .theme-button:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 48px rgba(52, 199, 89, 0.5);
+        border-color: rgba(52, 199, 89, 0.6);
+      }
     }
     
     @media (max-width: 480px) {
@@ -864,7 +1058,8 @@
         padding: 12px 20px;
       }
       
-      .birthday-banner {
+      .birthday-banner,
+      .march8-banner {
         flex-direction: column;
         text-align: center;
         gap: 10px;
@@ -891,6 +1086,11 @@
       .lesson-time {
         width: 100%;
         justify-content: center;
+      }
+      
+      .theme-button {
+        padding: 14px 22px;
+        font-size: 0.95rem;
       }
     }
     
@@ -938,7 +1138,7 @@
 </head>
 <body>
   <!-- Приветственная плашка -->
-  <div class="welcome-banner">
+  <div class="welcome-banner" id="welcomeBanner">
     <i class="fas fa-hand-sparkles welcome-icon"></i>
     <span class="welcome-text">Здравствуйте, Люба!</span>
   </div>
@@ -949,8 +1149,17 @@
     <span class="birthday-text">С днём рождения, Люба! 🎂</span>
   </div>
   
+  <!-- Плашка на 8 марта -->
+  <div class="march8-banner" id="march8Banner">
+    <i class="fas fa-heart march8-icon"></i>
+    <span class="march8-text">Люба, с 8 марта! 💐</span>
+  </div>
+  
   <!-- Конфетти -->
   <div class="confetti" id="confettiContainer"></div>
+  
+  <!-- Лепестки для 8 марта -->
+  <div class="petals" id="petalsContainer"></div>
   
   <!-- Индикатор свайпа -->
   <div class="swipe-indicator" id="swipeIndicator">
@@ -1067,10 +1276,19 @@
       </div>
     </div>
     
-    <!-- Футер -->
+    <!-- Футер с кнопкой переключения темы -->
     <footer class="footer">
-      <p>© 2026 Расписание занятий • Ремастер Glass version</p>
-      <p class="footer-signature">by Vova0x0</p>
+      <div class="footer-content">
+        <p>© 2026 Расписание занятий • Оптимизированная версия</p>
+        <p class="footer-signature">by Vova0x0</p>
+      </div>
+      
+      <div class="theme-section">
+        <button class="glass-button theme-button" id="themeSwitchBtn">
+          <i class="fas fa-leaf"></i>
+          <span>Перейти на зелёную тему</span>
+        </button>
+      </div>
     </footer>
   </div>
 
@@ -1177,6 +1395,93 @@
     let currentX = 0;
     const threshold = 50;
     
+    // Адрес зеленой темы (если файл лежит в той же папке)
+    const GREEN_THEME_URL = "Зелёная тема.html"; // Или полный путь
+    
+    // Функция для скрытия приветственной плашки с анимацией вверх
+    function hideWelcomeBanner() {
+      const welcomeBanner = document.getElementById('welcomeBanner');
+      if (welcomeBanner && !welcomeBanner.classList.contains('hiding')) {
+        welcomeBanner.classList.add('hiding');
+        
+        // Удаляем плашку из DOM после завершения анимации
+        setTimeout(() => {
+          if (welcomeBanner.parentNode) {
+            welcomeBanner.style.display = 'none';
+          }
+        }, 800);
+      }
+    }
+    
+    // Функция для создания лепестков для 8 марта
+    function createPetals() {
+      const petalsContainer = document.getElementById('petalsContainer');
+      petalsContainer.innerHTML = '';
+      
+      for (let i = 0; i < 60; i++) {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+        petal.style.left = `${Math.random() * 100}%`;
+        petal.style.animationDelay = `${Math.random() * 5}s`;
+        petal.style.animationDuration = `${6 + Math.random() * 4}s`;
+        petal.style.opacity = `${0.4 + Math.random() * 0.4}`;
+        petalsContainer.appendChild(petal);
+      }
+    }
+    
+    // Функция для проверки дат праздников
+    function checkHolidays() {
+      const today = new Date();
+      const month = today.getMonth(); // 0-11
+      const date = today.getDate();
+      
+      // День рождения - 9 ноября (месяц 10, так как январь = 0)
+      const isBirthday = month === 10 && date === 9;
+      
+      // 8 марта (месяц 2, так как январь = 0)
+      const isMarch8 = month === 2 && date === 8;
+      
+      // Обработка дня рождения
+      if (isBirthday) {
+        const birthdayBanner = document.getElementById('birthdayBanner');
+        birthdayBanner.classList.add('show');
+        createConfetti();
+        setInterval(createConfetti, 4000);
+      } else {
+        document.getElementById('birthdayBanner').style.display = 'none';
+      }
+      
+      // Обработка 8 марта
+      if (isMarch8) {
+        const march8Banner = document.getElementById('march8Banner');
+        march8Banner.classList.add('show');
+        createPetals();
+        
+        // Меняем фон на праздничный для 8 марта
+        document.body.style.background = `
+          radial-gradient(
+            ellipse at 20% 20%,
+            rgba(255, 105, 180, 0.25) 0%,
+            transparent 40%
+          ), 
+          radial-gradient(
+            ellipse at 80% 80%,
+            rgba(255, 182, 193, 0.25) 0%,
+            transparent 40%
+          ), 
+          linear-gradient(
+            135deg,
+            #1A0A14 0%,
+            #2F0A1A 30%,
+            #1A0F2F 70%,
+            #000000 100%
+          )
+        `;
+      } else {
+        document.getElementById('march8Banner').style.display = 'none';
+      }
+    }
+    
     // Функции
     function isEvenWeek(d = new Date()) {
       const semesterStart = new Date('2025-09-22');
@@ -1271,19 +1576,75 @@
         confettiContainer.appendChild(confetti);
       }
     }
-
-    // Проверка дня рождения
-    function checkBirthday() {
-      const today = new Date();
-      const isBirthday = today.getMonth() === 10 && today.getDate() === 9;
+    
+    // Функция для перехода на зеленую тему (в той же вкладке)
+    function switchToGreenTheme() {
+      const themeBtn = document.getElementById('themeSwitchBtn');
       
-      if (isBirthday) {
-        birthdayBanner.style.display = 'flex';
-        createConfetti();
-        setInterval(createConfetti, 4000);
-      } else {
-        birthdayBanner.style.display = 'none';
-      }
+      // Анимация нажатия кнопки
+      themeBtn.style.transform = 'scale(0.95)';
+      
+      // Создаем эффект перехода
+      const transitionOverlay = document.createElement('div');
+      transitionOverlay.style.position = 'fixed';
+      transitionOverlay.style.top = '0';
+      transitionOverlay.style.left = '0';
+      transitionOverlay.style.width = '100%';
+      transitionOverlay.style.height = '100%';
+      transitionOverlay.style.background = 'linear-gradient(135deg, #34C759, #32ADE6)';
+      transitionOverlay.style.zIndex = '99999';
+      transitionOverlay.style.opacity = '0';
+      transitionOverlay.style.transition = 'opacity 0.6s ease';
+      document.body.appendChild(transitionOverlay);
+      
+      // Плавное появление оверлея
+      setTimeout(() => {
+        transitionOverlay.style.opacity = '1';
+      }, 10);
+      
+      // Показываем сообщение о переходе
+      const message = document.createElement('div');
+      message.style.position = 'fixed';
+      message.style.top = '50%';
+      message.style.left = '50%';
+      message.style.transform = 'translate(-50%, -50%)';
+      message.style.zIndex = '100000';
+      message.style.color = 'white';
+      message.style.fontSize = '1.4rem';
+      message.style.fontWeight = '600';
+      message.style.textAlign = 'center';
+      message.style.opacity = '0';
+      message.style.transition = 'opacity 0.5s ease';
+      message.innerHTML = `
+        <i class="fas fa-leaf" style="font-size: 3rem; margin-bottom: 15px; display: block;"></i>
+        <div>Переход на зелёную тему...</div>
+      `;
+      document.body.appendChild(message);
+      
+      setTimeout(() => {
+        message.style.opacity = '1';
+      }, 300);
+      
+      // Переход на новую страницу через 2 секунды в ТОЙ ЖЕ ВКЛАДКЕ
+      setTimeout(() => {
+        window.location.href = GREEN_THEME_URL; // Используем window.location.href для перехода в той же вкладке
+        
+        // Плавное возвращение кнопки (на случай если переход не сработал)
+        setTimeout(() => {
+          themeBtn.style.transform = '';
+          transitionOverlay.style.opacity = '0';
+          message.style.opacity = '0';
+          
+          setTimeout(() => {
+            if (transitionOverlay.parentNode) {
+              transitionOverlay.remove();
+            }
+            if (message.parentNode) {
+              message.remove();
+            }
+          }, 600);
+        }, 500);
+      }, 2000);
     }
 
     // Рендер расписания
@@ -1403,8 +1764,26 @@
       const day = today.getDay();
       const weekType = isEvenWeek(today) ? "even" : "odd";
       
-      // День рождения
-      checkBirthday();
+      // Проверка праздников
+      checkHolidays();
+      
+      // Автоматическое скрытие приветственной плашки через 5 секунд
+      setTimeout(hideWelcomeBanner, 5000);
+      
+      // Также скрываем при клике на плашку
+      document.getElementById('welcomeBanner').addEventListener('click', function() {
+        hideWelcomeBanner();
+        // Сохраняем в localStorage, что пользователь сам закрыл плашку
+        localStorage.setItem('welcomeBannerClosed', 'true');
+      });
+      
+      // Проверяем, не закрывал ли пользователь плашку ранее
+      if (localStorage.getItem('welcomeBannerClosed') === 'true') {
+        hideWelcomeBanner();
+      }
+      
+      // Кнопка перехода на зеленую тему
+      document.getElementById('themeSwitchBtn').addEventListener('click', switchToGreenTheme);
       
       // Дата в инпуте
       const dateInput = document.getElementById('dateSearchInput');
@@ -1586,5 +1965,4 @@
     });
   </script>
 </body>
-
 </html>
