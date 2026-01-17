@@ -371,69 +371,6 @@
       }
     }
     
-    /* Плашка на 23 февраля */
-    .feb23-banner {
-      position: fixed;
-      top: 80px;
-      left: 50%;
-      transform: translateX(-50%) translateY(-100px);
-      z-index: 9998;
-      background: linear-gradient(135deg,
-        rgba(0, 82, 165, 0.25),
-        rgba(200, 16, 46, 0.25)
-      );
-      backdrop-filter: var(--blur-medium);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      border-radius: 20px;
-      padding: 18px 28px;
-      box-shadow: 
-        0 20px 60px rgba(0, 82, 165, 0.3),
-        0 0 40px rgba(200, 16, 46, 0.2);
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      max-width: calc(100vw - 32px);
-      opacity: 0;
-      transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    .feb23-banner.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-    
-    .feb23-banner.hiding {
-      opacity: 0;
-      transform: translateX(-50%) translateY(-100px);
-      pointer-events: none;
-    }
-    
-    .feb23-icon {
-      font-size: 1.8rem;
-      color: #0052A5;
-      animation: salute 2s ease-in-out infinite;
-    }
-    
-    @keyframes salute {
-      0%, 100% { transform: rotate(0deg) scale(1); }
-      25% { transform: rotate(-10deg) scale(1.1); }
-      75% { transform: rotate(10deg) scale(1.1); }
-    }
-    
-    .feb23-text {
-      font-size: 1.3rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, 
-        #0052A5 0%, 
-        #C8102E 50%, 
-        #FFFFFF 100%
-      );
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-shadow: 0 2px 10px rgba(0, 82, 165, 0.3);
-    }
-    
     /* Плашка на Новый год */
     .newyear-banner {
       position: fixed;
@@ -2592,4 +2529,5 @@
   </script>
 </body>
 </html>
+
 
