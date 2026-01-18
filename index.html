@@ -2254,7 +2254,7 @@
       } else {
         const todayIndicator = isToday ? " • Сегодня" : "";
         title.textContent = `${dayNames[day]}${todayIndicator}`;
-        dateSubtitle.textContent = weekType === "even" ? "Чётная неделя" : "Нечётная неделя";
+        dateSubtitle.textContent = weekType === "odd" ? "Чётная неделя" : "Нечётная неделя";
         
         const lessons = schedule[day]?.[weekType] || [];
         
